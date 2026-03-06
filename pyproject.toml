@@ -1,7 +1,7 @@
 [project]
 name = "argparse-help-markdown"
 dynamic = ["version"]
-description = "Pull argparse configuration out of a CLI tool and write it as Markdown. Great for embedded in a README.md with cog."
+description = "Pull argparse configuration out of a CLI tool and write it as Markdown. Great for embedding in a README.md with cog."
 readme = "README.md"
 authors = [
     { name = "ellieayla", email = "1447600+me@users.noreply.github.com" }
