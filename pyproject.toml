@@ -1,6 +1,6 @@
 [project]
 name = "argparse-help-markdown"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Pull argparse configuration out of a CLI tool and write it as Markdown. Great for embedded in a README.md with cog."
 readme = "README.md"
 authors = [
