@@ -18,10 +18,10 @@ repos:
 - repo: local
   hooks:
     - id: cog-readme
-      name: Update usage in readme
-      entry: uv tool run --from cogapp cog -rUP -- README.md
+      name: Verify usage in readme
+      entry: uv tool run --from cogapp cog --check --check-fail-msg "Usage in README.md needs to be updated" --verbosity 1 -UP -- README.md
       language: system
-      files: '^src/argparse_help_markdown.py$/'
+      files: '^src/argparse_help_markdown.py$'
       types: [python]
       stages: [pre-commit]
       pass_filenames: false
