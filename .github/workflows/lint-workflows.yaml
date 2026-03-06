@@ -7,13 +7,13 @@ on:
       - '*'
     paths:
         - '.pre-commit-config.yaml'
-        - .github.workflows/*.yaml'
+        - .github/workflows/**/*.yaml'
 
   # test as-merged
   pull_request:
     paths:
         - '.pre-commit-config.yaml'
-        - .github.workflows/*.yaml'
+        - .github/workflows/**/*.yaml'
 
 
 jobs:
@@ -37,8 +37,8 @@ jobs:
 
       - name: lint pre-commit config
         run: |
-          pre-commit validate-config .pre-commit-config.yaml --color=always | tee -a $GITHUB_STEP_SUMMARY
+          pre-commit validate-config .pre-commit-config.yaml --color=never | tee -a $GITHUB_STEP_SUMMARY
 
       - name: lint github workflows
         run: |
-          pre-commit run actionlint --color=always | tee -a $GITHUB_STEP_SUMMARY
+          pre-commit run actionlint --color=never | tee -a $GITHUB_STEP_SUMMARY
