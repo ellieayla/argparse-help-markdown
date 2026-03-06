@@ -38,6 +38,7 @@ jobs:
           name: new-pre-commit-config
           if-no-files-found: error
           retention-days: 5
+          include-hidden-files: true
 
       - uses: actions/upload-artifact@v6
         with:
@@ -62,7 +63,13 @@ jobs:
       - uses: actions/download-artifact@v6
         with:
           name: new-pre-commit-config
-          path: .pre-commit-config.yaml
+
+      - uses: actions/download-artifact@v6
+        with:
+          name: pre-commit-autoupdate-log
+
+      - name: verify directory contents
+        run: ls -R
 
       # Open a Pull Request if there's changes
       - id: cpr
@@ -76,7 +83,7 @@ jobs:
           title: '[bot] pre-commit autoupdate'
           add-paths: .pre-commit-config.yaml
           labels: automated
-          body-path: .github/pre-commit-autoupdate.log
+          body-path: pre-commit-autoupdate.log
 
       - name: Show message for created Pull Request
         if: ${{ steps.cpr.outputs.pull-request-url && steps.cpr.outputs.pull-request-operation != 'none' }}
