@@ -26,3 +26,9 @@ jobs:
     - name: pytest  # also runs mypy
       run: |
         pytest
+
+    - name: build wheel
+      run: uv build --wheel
+
+    - name: smoketest built wheel
+      run: uv tool run dist/argparse_help_markdown*.whl tests/data/example.py
