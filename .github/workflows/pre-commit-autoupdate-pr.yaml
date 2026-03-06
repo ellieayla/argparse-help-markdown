@@ -29,7 +29,8 @@ jobs:
 
       - name: annotate log
         run: |
-          echo "\nThe .pre-commit-config.yaml file cites several remote repositories at tagged commits.\n" >> .github/pre-commit-autoupdate.log
+          echo >> .github/pre-commit-autoupdate.log
+          echo "The .pre-commit-config.yaml file cites several remote repositories at tagged commits." >> .github/pre-commit-autoupdate.log
           echo "Updates are available in the upstream repositories. Check diff for new tags and verify change." >> .github/pre-commit-autoupdate.log
 
       - uses: actions/upload-artifact@v6
