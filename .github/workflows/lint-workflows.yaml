@@ -1,0 +1,44 @@
+name: lint workflows
+
+on:
+  # test in isolation
+  push:
+    branches:
+      - '*'
+    paths:
+        - '.pre-commit-config.yaml'
+        - .github.workflows/*.yaml'
+
+  # test as-merged
+  pull_request:
+    paths:
+        - '.pre-commit-config.yaml'
+        - .github.workflows/*.yaml'
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - run: python -m pip install pre-commit
+        shell: bash
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: lint pre-commit config
+        run: |
+          pre-commit validate-config .pre-commit-config.yaml --color=always | tee -a $GITHUB_STEP_SUMMARY
+
+      - name: lint github workflows
+        run: |
+          pre-commit run actionlint --color=always | tee -a $GITHUB_STEP_SUMMARY
