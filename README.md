@@ -8,7 +8,7 @@ Possible invocation options:
 
 ```sh
 # entrypoint command, dotted module
-uv run argparse-help-markdown -m tests.data.example
+uv tool run argparse-help-markdown -m tests.data.example
 
 # script, script
 argparse_help_markdown.py --write.md script.py
