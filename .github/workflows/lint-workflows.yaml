@@ -17,7 +17,22 @@ on:
 
 
 jobs:
-  lint:
+  lint-github-workflows:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout/@v6
+
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+
+      - name: Check workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color | tee -a $GITHUB_STEP_SUMMARY
+        shell: bash
+
+  lint-pre-commit:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +53,4 @@ jobs:
       - name: lint pre-commit config
         run: |
           pre-commit validate-config .pre-commit-config.yaml --color=never | tee -a $GITHUB_STEP_SUMMARY
-
-      - name: lint github workflows
-        run: |
-          pre-commit run actionlint --color=never | tee -a $GITHUB_STEP_SUMMARY
+        shell: bash
