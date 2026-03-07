@@ -21,6 +21,13 @@ repos:
     - id: actionlint
       args: [-pyflakes=, -ignore, SC2086.*Double quote]
 
+- repo: https://github.com/astral-sh/uv-pre-commit
+  # uv version.
+  rev: 0.10.3
+  hooks:
+    # Update the uv lockfile
+    - id: uv-lock
+
 - repo: local
   hooks:
     - id: cog-readme
