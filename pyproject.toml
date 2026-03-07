@@ -6,6 +6,11 @@ readme = "README.md"
 authors = [
     { name = "ellieayla", email = "1447600+me@users.noreply.github.com" }
 ]
+
+[project.urls]
+Repository = "https://github.com/ellieayla/argparse-help-markdown.git"
+Issues = "https://github.com/ellieayla/argparse-help-markdown/issues"
+
 requires-python = ">=3.8"
 dependencies = []
 
