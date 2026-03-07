@@ -25,7 +25,7 @@ jobs:
       - name: pre-commit autoupdate
         run: |
           pre-commit autoupdate --color=never | tee -a .github/pre-commit-autoupdate.log
-          cat .github/pre-commit-autoupdate.log > "$GITHUB_STEP_SUMMARY"
+          cat .github/pre-commit-autoupdate.log > $GITHUB_STEP_SUMMARY
 
       - name: annotate log
         run: |
