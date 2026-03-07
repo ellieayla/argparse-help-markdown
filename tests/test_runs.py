@@ -13,7 +13,7 @@ def test_run_simple(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None
 
     subject: Path = datafiles / "example.py"
 
-    run(filename=str(subject.absolute()), leftovers=[], include_usage=False, writer=None)
+    run(filename=str(subject.absolute()), include_usage=False, writer=None)
 
     captured = capsys.readouterr()
 
@@ -27,7 +27,7 @@ def test_script_with_no_argparse_raises_exception(datafiles: Path) -> None:
     subject: Path = datafiles / "no_argparse.py"
 
     with pytest.raises(ParseArgsNotCalledError):
-        run(filename=str(subject.absolute()), leftovers=[], include_usage=False, writer=None)
+        run(filename=str(subject.absolute()), include_usage=False, writer=None)
 
 
 @pytest.mark.datafiles(FIXTURE_DIR / "example.py")
@@ -38,7 +38,7 @@ def test_write_markdown_file(datafiles: Path) -> None:
     assert not output.exists()
 
     with Path.open(output, "w") as fh:
-        run(filename=str(subject.absolute()), leftovers=[], include_usage=False, writer=fh)
+        run(filename=str(subject.absolute()), include_usage=False, writer=fh)
 
     content = output.read_text()
     assert "A required integer option" in content
@@ -48,7 +48,7 @@ def test_write_markdown_file(datafiles: Path) -> None:
 def test_usage(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None:
     subject: Path = datafiles / "example.py"
 
-    run(filename=str(subject.absolute()), leftovers=[], include_usage=True)
+    run(filename=str(subject.absolute()), include_usage=True)
 
     captured = capsys.readouterr()
 

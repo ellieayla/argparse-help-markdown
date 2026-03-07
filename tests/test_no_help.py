@@ -13,7 +13,7 @@ def test_choice(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None:
 
     subject: Path = datafiles / "no_help.py"
 
-    run(filename=str(subject.absolute()), leftovers=[], include_usage=False, writer=None)
+    run(filename=str(subject.absolute()), include_usage=False, writer=None)
 
     captured = capsys.readouterr()
 

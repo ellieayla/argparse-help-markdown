@@ -32,7 +32,11 @@ source = ["src/", "tests/"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 100
-omit = ["/**/pytest-*/test_*/*.py"]
+omit = [
+    "/**/pytest-*/test_*/*.py",
+    "/**/pytest-*/test_*/directory*/*.py",
+    "/**/pytest-*/test_*/a/b/mod.py",
+]
 
 [tool.pytest.ini_options]
 addopts = "--mypy --cov --failed-first"
