@@ -44,7 +44,7 @@ usage: argparse_help_markdown.py script.py
 
 ## Installation, or not
 
-This is built as a single-file that can be installed as a package or used standalone. It can be imported as a module or run on the command-line. It's mostly useful inside a documentation CICD pipeline, where flexability is key.
+This is built as a single-file that can be installed as a package or used standalone. It can be imported as a module or run on the command-line. It's mostly useful inside a documentation CICD pipeline, where flexability is key. No dependencies outside of standard library.
 
 With uv: `uv tool run argparse-help-markdown`
 
