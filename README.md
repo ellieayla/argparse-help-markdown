@@ -1,6 +1,8 @@
 Pull argparse configuration out of a CLI tool and write it as Markdown.
 
-Great for embedded in a README.md with cog.
+Great for embedded in a README.md with (cog)[https://github.com/nedbat/cog].
+
+## Usage
 
 Possible invocation options:
 
@@ -35,3 +37,16 @@ usage: argparse_help_markdown.py script.py
 | <pre>--write</pre> | Optional. | Write to named file instead of stdout. |
 | <pre>-m --module</pre> | Optional. | Run as module. |
 <!-- [[[end]]] -->
+
+
+## Installation, or not
+
+This is built as a single-file that can be installed as a package or used standalone. It can be imported as a module or run on the command-line. It's mostly useful inside a documentation CICD pipeline, where flexability is key.
+
+Drop it with curl: `curl -O https://raw.githubusercontent.com/ellieayla/argparse-help-markdown/main/src/argparse_help_markdown.py; python3 argparse_help_markdown.py`
+
+With uv: `uv tool run argparse-help-markdown`
+
+With pipx: `pipx run argparse-help-markdown`
+
+Or just install it with pip: `pip install argparse-help-markdown`
