@@ -7,11 +7,12 @@ import importlib.machinery
 import importlib.util
 import os
 import sys
+from collections.abc import Callable, Generator, Iterable
 from contextlib import contextmanager
 from importlib.machinery import ModuleSpec
 from pathlib import Path
 from types import CodeType, ModuleType
-from typing import TYPE_CHECKING, Any, Callable, Generator, Iterable
+from typing import TYPE_CHECKING, Any
 from unittest.mock import patch
 
 if TYPE_CHECKING:
