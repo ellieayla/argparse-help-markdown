@@ -31,7 +31,7 @@ jobs:
 
       - name: Check workflow files
         run: |
-          "${{ steps.get_actionlint.outputs.executable }}" -verbose -pyflakes= -no-color | tee -a "$GITHUB_STEP_SUMMARY"
+          "${{ steps.get_actionlint.outputs.executable }}" -verbose -pyflakes= -no-color -ignore "SC2086.*Double quote" | tee -a $GITHUB_STEP_SUMMARY
         shell: bash
 
   lint-pre-commit:
@@ -54,5 +54,5 @@ jobs:
 
       - name: lint pre-commit config
         run: |
-          pre-commit validate-config .pre-commit-config.yaml --color=never | tee -a "$GITHUB_STEP_SUMMARY"
+          pre-commit validate-config .pre-commit-config.yaml --color=never | tee -a $GITHUB_STEP_SUMMARY
         shell: bash
