@@ -87,4 +87,4 @@ def test_module_empty_directory(datafiles: Path, capsys: pytest.CaptureFixture[s
         with pytest.raises(NoSourceError) as e:
             main()
 
-    assert "Is a package and cannot be directly executed" == e.value.args[0]
+    assert "Is a package and cannot be directly executed (no directorypackage3.__main__ module)" == e.value.args[0]

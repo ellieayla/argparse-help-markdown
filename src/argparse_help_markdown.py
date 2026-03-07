@@ -257,10 +257,12 @@ def find_module(module_name: str) -> tuple[str | None, str, ModuleSpec]:
     path_name = spec.origin
     package_name = spec.name
     if spec.submodule_search_locations:
+        # module_name is actually a package.
+        # Look inside the package for a __main__.py, and make a spec for that module.
         mod_main = module_name + ".__main__"
         spec = importlib.util.find_spec(mod_main)
         if not spec:
-            raise NoSourceError("Is a package and cannot be directly executed")
+            raise NoSourceError(f"Is a package and cannot be directly executed (no {mod_main} module)")
 
         path_name = spec.origin
         package_name = spec.name
@@ -275,6 +277,7 @@ class Loader:
     filename_or_module: str
     as_module: bool = False
 
+    spec: ModuleSpec | None = None
     package: str | None = None
     loader: DummyLoader
 
@@ -337,6 +340,7 @@ class Loader:
             self.loader = DummyLoader("__main__")
         else:
             self.path_name = self.filename_or_module
+            self.spec = None
             self.loader = DummyLoader("__main__")
 
     def load_main_code(self) -> tuple[CodeType, ModuleType]:
