@@ -24,14 +24,16 @@ jobs:
 
       - name: pre-commit autoupdate
         run: |
-          pre-commit autoupdate --color=always | tee -a .github/pre-commit-autoupdate.log
-          cat .github/pre-commit-autoupdate.log > $GITHUB_STEP_SUMMARY
+          pre-commit autoupdate --color=never | tee -a .github/pre-commit-autoupdate.log
+          cat .github/pre-commit-autoupdate.log > "$GITHUB_STEP_SUMMARY"
 
       - name: annotate log
         run: |
-          echo >> .github/pre-commit-autoupdate.log
-          echo "The .pre-commit-config.yaml file cites several remote repositories at tagged commits." >> .github/pre-commit-autoupdate.log
-          echo "Updates are available in the upstream repositories. Check diff for new tags and verify change." >> .github/pre-commit-autoupdate.log
+          {
+            echo
+            echo "The .pre-commit-config.yaml file cites several remote repositories at tagged commits."
+            echo "Updates are available in the upstream repositories. Check diff for new tags and verify change."
+          } >> .github/pre-commit-autoupdate.log
 
       - uses: actions/upload-artifact@v6
         with:
