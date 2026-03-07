@@ -380,6 +380,9 @@ def run(*, filename: str, as_module: bool = False, include_usage: bool, writer: 
 
     sys.modules["__main__"] = main_mod
 
+    # argparse prog is based on this name.
+    sys.argv = [str(filename)]
+
     # part of argparse's public api in >=3.14, and ignored earlier
     os.environ["NO_COLOR"] = "1"
 

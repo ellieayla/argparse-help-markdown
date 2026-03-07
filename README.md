@@ -22,7 +22,7 @@ with open("out.md", mode="w") as f:
     m.run(filename="src/argparse_help_markdown.py", include_usage=True, writer=None)
 ]]] -->
 ```
-usage: cog script.py
+usage: argparse_help_markdown.py script.py
 ```
 
 | Options | Values  | Help |
