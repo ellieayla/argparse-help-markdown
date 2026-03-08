@@ -17,7 +17,7 @@ def test_run_simple(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None
 
     captured = capsys.readouterr()
 
-    assert "<pre>positional_required</pre>" in captured.out
+    assert r"<pre>positional\_required</pre>" in captured.out
     for line in captured.out.splitlines():
         assert line[0] == "|"
 
@@ -55,3 +55,16 @@ def test_usage(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None:
     assert captured.err == ""
 
     assert "usage: Example [-h]" in captured.out
+
+
+@pytest.mark.datafiles(FIXTURE_DIR / "example.py")
+def test_no_usage(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    subject: Path = datafiles / "example.py"
+
+    run(filename=str(subject.absolute()), include_usage=False)
+
+    captured = capsys.readouterr()
+
+    assert captured.err == ""
+
+    assert "usage: Example [-h]" not in captured.out

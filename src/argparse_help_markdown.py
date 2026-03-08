@@ -11,6 +11,7 @@ from collections.abc import Callable, Generator, Iterable
 from contextlib import contextmanager
 from importlib.machinery import ModuleSpec
 from pathlib import Path
+from string import punctuation
 from types import CodeType, ModuleType
 from typing import TYPE_CHECKING, Any
 from unittest.mock import patch
@@ -35,9 +36,12 @@ def wrap_in_backticks(s: str) -> str:
     return f"`{s}`"
 
 
-def escape_pipe(s: str) -> str:
-    """Escape | characters."""
-    return s.replace("|", r"\|")
+ESCAPE_PUNCTUATION_TABLE = "".maketrans({char: f"\\{char}" for char in punctuation if char not in ".,/-"})
+
+
+def escape_markdown(text: str) -> str:
+    """Prefix all characters meaningful in markdown tables with backslashes."""
+    return text.translate(ESCAPE_PUNCTUATION_TABLE)
 
 
 class MarkdownFormatter(argparse.HelpFormatter):
@@ -98,8 +102,8 @@ class MarkdownFormatter(argparse.HelpFormatter):
     def arguments_column(self, action: argparse.Action) -> str:
         default = action.dest
         if action.option_strings:
-            return pre_tag(" ".join(action.option_strings))
-        return pre_tag(default)
+            return pre_tag(escape_markdown(" ".join(action.option_strings)))
+        return pre_tag(escape_markdown(default))
 
     def _format_action(self, action: argparse.Action) -> str:
         if action.type and isinstance(action.type, type):
@@ -128,18 +132,18 @@ class MarkdownFormatter(argparse.HelpFormatter):
             column_two_parts.append("Optional.")
 
         if action.type is not None:
-            column_two_parts.append(f"Type: {typename}")
+            column_two_parts.append(f"Type: {escape_markdown(typename)}")
         if action.choices:
-            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(x) for x in action.choices])}")
+            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(escape_markdown(x)) for x in action.choices])}")
         if action.default and action.default is not argparse.SUPPRESS and action.const is None:
-            column_two_parts.append(f"Default: {wrap_in_backticks(action.default)}")
+            column_two_parts.append(f"Default: {wrap_in_backticks(escape_markdown(action.default))}")
 
         # 3
         if action.help and action.help.strip():
             column_three = action.help.strip()
         else:
             column_three = ""  # no help
-        return f"| {column_one} | {'<br/>'.join(column_two_parts)} | {column_three} |\n"
+        return f"| {column_one} | {'<br/>'.join(column_two_parts)} | {escape_markdown(column_three)} |\n"
 
         # TODO:
         # if there are any sub-actions, add their help as well
@@ -155,7 +159,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
             self.add_argument(action)
 
     def _format_text(self, text: str) -> str:
-        return f"| {escape_pipe(text)} | |\n"
+        return f"| {escape_markdown(text)} | |\n"
 
     def add_text(self, text: str | None) -> None:
         if text:
@@ -171,7 +175,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
         """No implementation; usage doesn't go in the table. Just ignore the arguments."""
 
     def _format_heading(self, text: str) -> str:
-        return f"| *{escape_pipe(text)}* | |\n"
+        return f"| *{escape_markdown(text)}* | |\n"
 
     def start_section(self, heading: str | None) -> None:
         if heading:
@@ -374,7 +378,7 @@ def run_module(modulename: str, include_usage: bool = False, cwd: Path | str | N
     run(filename=modulename, as_module=True, include_usage=include_usage, writer=None)
 
 
-def run(*, filename: str, as_module: bool = False, include_usage: bool, writer: TextIOWrapper | None = None) -> None:
+def run(*, filename: str, as_module: bool = False, include_usage: bool = False, writer: TextIOWrapper | None = None) -> None:
     """
     Read source from filename, construct a __main__ module for it, patch argparse, and exec() the source.
 
