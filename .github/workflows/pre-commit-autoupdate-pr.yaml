@@ -35,7 +35,7 @@ jobs:
             echo "Updates are available in the upstream repositories. Check diff for new tags and verify change."
           } >> .github/pre-commit-autoupdate.log
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           path: .pre-commit-config.yaml
           name: new-pre-commit-config
@@ -43,7 +43,7 @@ jobs:
           retention-days: 5
           include-hidden-files: true
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           path: .github/pre-commit-autoupdate.log
           name: pre-commit-autoupdate-log

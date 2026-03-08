@@ -26,7 +26,7 @@ jobs:
       - name: smoketest
         run: uv tool run dist/argparse_help_markdown*.whl tests/data/example.py
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           path: dist/
           name: python-package-distributions
