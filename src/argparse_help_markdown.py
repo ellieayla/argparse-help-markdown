@@ -136,7 +136,13 @@ class MarkdownFormatter(argparse.HelpFormatter):
         if action.choices:
             column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(escape_markdown(x)) for x in action.choices])}")
         if action.default and action.default is not argparse.SUPPRESS and action.const is None:
-            column_two_parts.append(f"Default: {wrap_in_backticks(escape_markdown(action.default))}")
+            if isinstance(action.default, list) and len(action.default) == 1:
+                default_str = str(action.default[0])
+            elif isinstance(action.default, str):
+                default_str = action.default
+            else:
+                default_str = repr(action.default)
+            column_two_parts.append(f"Default: {wrap_in_backticks(escape_markdown(default_str))}")
 
         # 3
         if action.help and action.help.strip():
