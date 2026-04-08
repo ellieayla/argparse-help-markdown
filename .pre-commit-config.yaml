@@ -9,21 +9,21 @@ repos:
     -   id: check-added-large-files
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.15.5
+  rev: v0.15.9
   hooks:
   - id: ruff-format
     args: [--diff]
   - id: ruff-check
 
 - repo: https://github.com/rhysd/actionlint
-  rev: v1.7.11
+  rev: v1.7.12
   hooks:
     - id: actionlint
       args: [-pyflakes=, -ignore, SC2086.*Double quote]
 
 - repo: https://github.com/astral-sh/uv-pre-commit
   # uv version.
-  rev: 0.10.9
+  rev: 0.11.3
   hooks:
     # Update the uv lockfile
     - id: uv-lock
