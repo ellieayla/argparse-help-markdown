@@ -77,13 +77,14 @@ class MarkdownFormatter(argparse.HelpFormatter):
     """
 
     prog: str
+    _prog: str
     items: list[tuple[Callable[..., str], Iterable[Any]]]
     in_table: bool = False
 
     def __init__(self, prog: str, *_args: Iterable[Any]) -> None:
         """Sneak away the prog name, ignore other arguments."""
         # may need to deal with args/kwargs?
-        self.prog = prog
+        self.prog = self._prog = prog
         self.items = []
 
     def _set_color(self, color: bool) -> None:  # noqa: ARG002, FBT001
@@ -149,7 +150,8 @@ class MarkdownFormatter(argparse.HelpFormatter):
 
         # 3
         if action.help and action.help.strip():
-            column_three = action.help.strip()
+            column_three = self._expand_help(action)
+
         else:
             column_three = ""  # no help
         return f"| {column_one} | {'<br/>'.join(column_two_parts)} | {escape_markdown(column_three)} |\n"
