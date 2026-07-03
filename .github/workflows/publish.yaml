@@ -47,10 +47,10 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
-        env:
+      - env:
           GH_TOKEN: ${{ github.token }}
           tag: ${{ github.ref_name }}
-      - run:
+        run:
           gh release create "$tag" --verify-tag --generate-notes --fail-on-no-commits -- dist/*
 
   pypi-publish:
