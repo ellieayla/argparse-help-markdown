@@ -43,10 +43,13 @@ jobs:
       attestations: write
 
     steps:
+      - uses: actions/checkout@v6
+
       - uses: actions/download-artifact@v8
         with:
           name: python-package-distributions
           path: dist/
+
       - env:
           GH_TOKEN: ${{ github.token }}
           tag: ${{ github.ref_name }}
