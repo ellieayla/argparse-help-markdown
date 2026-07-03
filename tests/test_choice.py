@@ -19,4 +19,4 @@ def test_choice(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> None:
 
     assert "--choice" in captured.out
     assert "Optional." in captured.out
-    assert "Choice: `a`, `b`" in captured.out
+    assert "Choice: `a_a`, `b-b`" in captured.out

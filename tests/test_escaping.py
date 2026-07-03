@@ -22,7 +22,7 @@ def test_underscores_and_pipes_escaped(datafiles: Path, capsys: pytest.CaptureFi
             option, values, help = (x.strip(" |") for x in row.split(" | "))
 
             assert option == r"<pre>--option\|\_names</pre>"
-            assert values == r"Type: str<br/>Default: `def\|\_aults`"
+            assert values == r"Type: str<br/>Default: `def\|_aults`"
             assert help == r"help\|\_text subject line"
             break
     else:

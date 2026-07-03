@@ -31,9 +31,12 @@ def pre_tag(s: str) -> str:
     return f"<pre>{s}</pre>"
 
 
+ESCAPE_PUNCTUATION_TABLE_INSIDE_BACKTICKS = "".maketrans({char: f"\\{char}" for char in "`|"})
+
+
 def wrap_in_backticks(s: str) -> str:
     """Wrap `strings` in backticks."""
-    return f"`{s}`"
+    return f"`{s.translate(ESCAPE_PUNCTUATION_TABLE_INSIDE_BACKTICKS)}`"
 
 
 ESCAPE_PUNCTUATION_TABLE = "".maketrans({char: f"\\{char}" for char in punctuation if char not in ".,/-"})
@@ -134,7 +137,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
         if action.type is not None:
             column_two_parts.append(f"Type: {escape_markdown(typename)}")
         if action.choices:
-            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(escape_markdown(str(x))) for x in action.choices])}")
+            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(str(x)) for x in action.choices])}")
         if action.default and action.default is not argparse.SUPPRESS and action.const is None:
             if isinstance(action.default, list) and len(action.default) == 1:
                 default_str = str(action.default[0])
@@ -142,7 +145,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
                 default_str = action.default
             else:
                 default_str = repr(action.default)
-            column_two_parts.append(f"Default: {wrap_in_backticks(escape_markdown(default_str))}")
+            column_two_parts.append(f"Default: {wrap_in_backticks(default_str)}")
 
         # 3
         if action.help and action.help.strip():
