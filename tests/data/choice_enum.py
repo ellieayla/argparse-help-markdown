@@ -11,7 +11,7 @@ class EnumChoice(StrEnum):
 
 def main() -> None:
     p = ArgumentParser(prog="Example")
-    p.add_argument("--enum", choices=EnumChoice, help="c")
+    p.add_argument("--enum", choices=EnumChoice, default=EnumChoice.no, help="c")
 
     _ = p.parse_args()
     raise ValueError("Should never reach here.")  # pragma: no cover

@@ -145,7 +145,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
             elif isinstance(action.default, str):
                 default_str = action.default
             else:
-                default_str = repr(action.default)
+                default_str = str(action.default)
             column_two_parts.append(f"Default: {wrap_in_backticks(default_str)}")
 
         # 3
