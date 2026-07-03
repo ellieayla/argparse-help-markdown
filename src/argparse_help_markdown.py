@@ -138,7 +138,7 @@ class MarkdownFormatter(argparse.HelpFormatter):
         if action.type is not None:
             column_two_parts.append(f"Type: {escape_markdown(typename)}")
         if action.choices:
-            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(str(x)) for x in action.choices])}")
+            column_two_parts.append(f"Choice: {', '.join([wrap_in_backticks(str(x)) for x in sorted(action.choices)])}")
         if action.default and action.default is not argparse.SUPPRESS and action.const is None:
             if isinstance(action.default, list) and len(action.default) == 1:
                 default_str = str(action.default[0])

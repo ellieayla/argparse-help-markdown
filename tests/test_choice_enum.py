@@ -19,4 +19,4 @@ def test_choice_enum(datafiles: Path, capsys: pytest.CaptureFixture[str]) -> Non
 
     assert "--enum" in captured.out
     assert "Default: `no`" in captured.out
-    assert "Choice: `yes`, `no`" in captured.out
+    assert "Choice: `no`, `yes`" in captured.out
