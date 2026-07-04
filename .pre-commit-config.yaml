@@ -34,7 +34,6 @@ repos:
       name: Verify usage in readme
       entry: uv tool run --from cogapp cog --check --check-fail-msg "Usage in README.md needs to be updated; uv tool run --from cogapp cog -rUP -- README.md" --verbosity 1 -UP -- README.md
       language: system
-      files: '^src/argparse_help_markdown.py$'
-      types: [python]
+      types_or: [python, markdown]
       stages: [pre-commit]
       pass_filenames: false

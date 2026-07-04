@@ -52,4 +52,18 @@ With pipx: `pipx run argparse-help-markdown`
 
 Or install with pip: `pip install argparse-help-markdown`
 
-Or grab a locked version with curl: `curl -O https://raw.githubusercontent.com/ellieayla/argparse-help-markdown/fac869cbc657645777960e5aeb7ed1b42c200354/src/argparse_help_markdown.py; python3 argparse_help_markdown.py`
+Or grab a locked version with curl:
+
+<!-- [[[cog
+    import subprocess
+    rev = subprocess.check_output(["git", "describe", "--tags", "--abbrev=0"], text=True).strip()
+    print("```")
+    print(f"curl -O https://raw.githubusercontent.com/ellieayla/argparse-help-markdown/{rev}/src/argparse_help_markdown.py")
+    print("python3 argparse_help_markdown.py")
+    print("```")
+]]] -->
+```
+curl -O https://raw.githubusercontent.com/ellieayla/argparse-help-markdown/v1.1.7/src/argparse_help_markdown.py
+python3 argparse_help_markdown.py
+```
+<!-- [[[end]]] -->
